@@ -6,6 +6,10 @@
   "author": "Hoang Tan Phat <hoangtanphat97.xm@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "lerna": "^7.0.0"
   },
   "workspaces": {
@@ -13,7 +17,19 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/@mui/material", "**/tailwindcss"
+      "**/@mui/material",
+      "**/tailwindcss"
     ]
+  },
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "build": "yarn lerna run build",
+    "dev": "yarn lerna run dev",
+    "commit": "yarn git-cz"
   }
 }
