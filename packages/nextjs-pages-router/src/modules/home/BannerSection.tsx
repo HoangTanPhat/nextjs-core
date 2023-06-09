@@ -14,7 +14,7 @@ export default function BannerSection() {
         height: "100vh",
       }}
     >
-      <div className="bg-black opacity-50 absolute top-0 bottom-0 left-0 right-0"></div>
+      <div className="bg-gradient-to-r from-black opacity-80 absolute top-0 bottom-0 left-0 right-0"></div>
       <Container
         sx={{
           zIndex: 10,
