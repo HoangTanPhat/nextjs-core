@@ -26,6 +26,7 @@ export default function NavBarButton({
           justifyContent: "center",
           minHeight: 50,
           position: "relative",
+          textTransform: "capitalize",
           borderRadius: 0,
           "&:hover": {
             backgroundColor: "transparent",
@@ -48,7 +49,7 @@ export default function NavBarButton({
           variant="h6"
           fontWeight={600}
           sx={(theme) => ({
-            fontSize: 16,
+            fontSize: 20,
           })}
         >
           {title}

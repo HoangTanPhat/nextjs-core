@@ -6,7 +6,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 100;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Thin.otf) format('truetype');
   font-display: swap;
 }
@@ -15,7 +15,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 200;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Xlight.otf) format('truetype');
   font-display: swap;
 }
@@ -24,7 +24,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 300;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Light.otf) format('truetype');
   font-display: swap;
 }
@@ -33,7 +33,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Regular.otf) format('truetype');
   font-display: swap;
 }
@@ -42,7 +42,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 500;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Medium.otf) format('truetype');
   font-display: swap;
 }
@@ -51,7 +51,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-SemiBold.otf) format('truetype');
   font-display: swap;
 }
@@ -60,7 +60,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 700;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Bold.otf) format('truetype');
   font-display: swap;
 }
@@ -69,7 +69,7 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 800;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Black.otf) format('truetype');
   font-display: swap;
 }
@@ -78,11 +78,11 @@
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 900;
-  src: local('SVN Gilroy'),
+  src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Heavy.otf) format('truetype');
   font-display: swap;
 }
 
-* {
+#__next {
 @apply font-gilroy;
 }

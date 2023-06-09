@@ -10,6 +10,9 @@ interface AllProvidersProps {
 }
 export default function AllProviders({ children }: AllProvidersProps) {
   const theme = createTheme({
+    typography: {
+      fontFamily: "Gilroy",
+    },
     palette: {
       primary: {
         main: "#FFBA00",

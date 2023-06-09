@@ -2,8 +2,7 @@ import { NextSeo } from "next-seo";
 import React from "react";
 import Box from "@mui/material/Box/Box";
 import dynamic from "next/dynamic";
-
-const Header = dynamic(() => import("./Header"));
+import Header from "./Header";
 
 interface LayoutContainerProps {
   children: React.ReactNode;

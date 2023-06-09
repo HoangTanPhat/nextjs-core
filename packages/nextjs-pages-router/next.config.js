@@ -17,6 +17,19 @@ const nextConfig = {
         chunks: "all",
       },
     };
+
+    config.module.rules.push({
+      test: /\.(js|jsx)$/,
+      include: [path.resolve(__dirname, "src", "client")],
+      use: [
+        {
+          loader: "babel-loader",
+          options: {
+            plugins: [["import", { libraryName: "antd", style: true }, "antd"]],
+          },
+        },
+      ],
+    });
     // if (!isServer) {
     //   // Fixes npm packages that depend on `fs` module
     //   // @link https://github.com/vercel/next.js/issues/36514#issuecomment-1112074589
