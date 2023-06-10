@@ -2,7 +2,8 @@
   "useWorkspaces": true,
   "version": "0.0.0",
   "packages": [
-    "packages/*"
+    "packages/*",
+    "templates/*"
   ],
   "npmClient": "yarn",
   "stream": true
