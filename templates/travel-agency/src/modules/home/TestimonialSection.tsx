@@ -38,7 +38,6 @@ export default function TestimonialSection() {
     e.preventDefault();
     e.stopPropagation();
     const target = e.target as HTMLElement;
-    console.log(target);
     const targetClassNameIdx = target.className.match(/testimonial-(.+)/);
     if (targetClassNameIdx) {
       console.log(targetClassNameIdx);

@@ -12,21 +12,32 @@ export default function CallToActionSection() {
       sx={{
         backgroundColor: "black",
         py: 10,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <SectionTitle
-        title="Get started today for free"
+      <Box
         sx={{
-          color: "white",
+          position: "relative",
+          zIndex: 10,
         }}
-      />
-      <Typography variant="body1" textAlign="center" color="white" mt={2}>
-        Everything you need for great experiences
-      </Typography>
+      >
+        <SectionTitle
+          title="Get started today for free"
+          sx={{
+            color: "white",
+          }}
+        />
+        <Typography variant="body1" textAlign="center" color="white" mt={2}>
+          Everything you need for great experiences
+        </Typography>
+      </Box>
 
       <Box
         sx={{
+          zIndex: 10,
           mt: 4,
+          position: "relative",
           display: "flex",
           justifyContent: "center",
         }}
@@ -45,6 +56,28 @@ export default function CallToActionSection() {
           Talk to us
         </Button>
       </Box>
+      <Typography
+        sx={{
+          m: "auto",
+          zIndex: 0,
+          color: "rgba(255,255,255,0.1)",
+          fontSize: "28vw",
+          whiteSpace: "nowrap",
+          position: "absolute",
+          bottom: "-20vw",
+          left: 0,
+          right: 0,
+          fontWeight: "bold",
+          //   WebkitTextFillColor: "black",
+          //   WebkitTextStrokeWidth: 1,
+          //   WebkitTextStrokeColor: "rgba(0,0,0,0.7)",
+          //   textFill: white; /* Will override color (regardless of order) */
+          //   -webkit-text-stroke-width: 1px;
+          //   -webkit-text-stroke-color: black;
+        }}
+      >
+        Traveldi
+      </Typography>
     </Section>
   );
 }

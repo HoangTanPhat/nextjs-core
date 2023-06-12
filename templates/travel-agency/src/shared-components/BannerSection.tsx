@@ -3,15 +3,26 @@ import Container from "@mui/material/Container/Container";
 import Typography from "@mui/material/Typography/Typography";
 import React from "react";
 
-export default function BannerSection() {
+interface BannerSectionProps {
+  homepage?: boolean;
+  title: string;
+  description?: string;
+  url?: string;
+}
+export default function BannerSection({
+  homepage,
+  title = "Page title",
+  description,
+  url,
+}: BannerSectionProps) {
   return (
     <section
       style={{
         position: "relative",
-        backgroundImage: "url('/images/hero-banner-comz.jpeg')",
+        backgroundImage: `url('${url}')`,
         backgroundSize: "cover",
         backgroundPosition: "top",
-        height: "100vh",
+        height: homepage ? "100vh" : 400,
       }}
     >
       <div className="bg-gradient-to-r from-black opacity-80 absolute top-0 bottom-0 left-0 right-0"></div>
@@ -27,6 +38,7 @@ export default function BannerSection() {
       >
         <Box
           sx={{
+            mt: !homepage ? "80px" : 0,
             maxWidth: {
               sm: "70%",
               lg: "40%",
@@ -34,11 +46,10 @@ export default function BannerSection() {
           }}
         >
           <Typography variant="h1" fontWeight={700} fontSize={70} color="white">
-            Quickest & safest delivery
+            {title}
           </Typography>
           <Typography color="white" maxWidth="80%" my={4}>
-            Our cutting-edge logistics system guarantees the fastest and most
-            secure delivery service available.
+            {description}
           </Typography>
         </Box>
       </Container>

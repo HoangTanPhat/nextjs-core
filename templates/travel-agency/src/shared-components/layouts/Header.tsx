@@ -203,7 +203,7 @@ export default function Header(props?: Props) {
 
           {/* Mobile menu button */}
 
-          <Disclosure.Panel className="lg:hidden mt-[80px] h-[calc(100vh-72px)] bg-[rgba(0,0,0,0.8)] px-6 backdrop-blur-xl">
+          <Disclosure.Panel className="lg:hidden mt-[80px] h-[calc(100vh-80px)] bg-[rgba(0,0,0,0.8)] px-6 backdrop-blur-xl">
             <div className="flex flex-col pb-6">
               <div className="overflow-x-none grow overflow-y-auto shadow-inner">
                 {allHeaders.map((item) => {
