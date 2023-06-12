@@ -1,12 +1,15 @@
+import SectionTitle from "@/shared-components/SectionTitle";
 import Section from "@/shared-components/layouts/Section";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function TestimonialSection() {
   const [onHover, setOnHover] = useState<number | undefined>(undefined);
+  const desktopView = useMediaQuery("(min-width:1024px)");
 
   const imgList = [
     {
@@ -70,19 +73,20 @@ export default function TestimonialSection() {
           padding: "0px 24px",
         }}
       >
-        <Grid container>
-          <Grid item xs={8}>
-            <Typography variant="h2" fontSize={36} fontWeight="bold">
-              Our customers are satisfied
-            </Typography>
-          </Grid>
-          <Grid item xs={4}></Grid>
-        </Grid>
+        <SectionTitle
+          title="Our customers are satisfied"
+          sx={{
+            textAlign: "left",
+            maxWidth: "none",
+            m: 0,
+            fontSize: 36,
+          }}
+        />
       </section>
       <Grid
         id="testimonial"
         container
-        columnSpacing={1}
+        spacing={1}
         mt={4}
         sx={{
           height: "100%",
@@ -109,9 +113,10 @@ export default function TestimonialSection() {
                 sx={{
                   backgroundImage: `url('/images/${link}.jpeg')`,
                   backgroundSize: "cover",
+                  backgroundPosition: "center",
                   position: "relative",
                   width: "100%",
-                  height: "500px",
+                  height: desktopView ? 500 : 300,
                   zIndex: 0,
                   p: 3,
                 }}
@@ -131,7 +136,7 @@ export default function TestimonialSection() {
                       position: "relative",
                     }}
                     variant="body1"
-                    fontSize={20}
+                    fontSize={desktopView ? 20 : 12}
                     color="white"
                   >
                     {text}

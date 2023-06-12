@@ -1,11 +1,12 @@
 import Section from "@/shared-components/layouts/Section";
-import { Button, Divider, Typography } from "@mui/material";
+import { Button, Divider, Typography, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 
 export default function CommitmentSection() {
+  const desktopView = useMediaQuery("(min-width:1024px)");
   return (
     <Section>
       <Grid container columnSpacing={12}>
@@ -14,7 +15,7 @@ export default function CommitmentSection() {
             sx={{
               position: "relative",
               width: "100%",
-              height: "100%",
+              height: desktopView ? "100%" : 400,
             }}
           >
             <Image
@@ -27,7 +28,15 @@ export default function CommitmentSection() {
             />
           </Box>
         </Grid>
-        <Grid item xs={12} md={6} py={4} pl={3} pr={1}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          py={desktopView ? 4 : 0}
+          pl={desktopView ? 3 : 0}
+          pr={desktopView ? 1 : 0}
+          mt={desktopView ? 0 : 2}
+        >
           <Typography variant="h2" fontSize={36} fontWeight="bold">
             Building memories
           </Typography>

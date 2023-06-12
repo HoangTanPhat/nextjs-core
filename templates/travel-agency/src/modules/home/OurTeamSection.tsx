@@ -1,4 +1,5 @@
 import Section from "@/shared-components/layouts/Section";
+import { useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -8,10 +9,18 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
 export default function OurTeamSection() {
+  const desktopView = useMediaQuery("(min-width:1024px)");
   return (
     <Section>
       <Grid container columnSpacing={12}>
-        <Grid item xs={12} md={6} py={10} pl={3} pr={1}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          py={desktopView ? 10 : 0}
+          pl={desktopView ? 3 : 0}
+          pr={desktopView ? 1 : 0}
+        >
           <Typography variant="h2" fontSize={36} fontWeight="bold">
             Your personal travel architects
           </Typography>
@@ -33,7 +42,7 @@ export default function OurTeamSection() {
 
           <Divider sx={{ my: 4 }} />
 
-          <Grid container columnSpacing={3}>
+          <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Typography fontWeight="bold">Personalized</Typography>
               <Typography variant="caption">
@@ -57,8 +66,12 @@ export default function OurTeamSection() {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Stack direction="column" sx={{ height: "100%" }} gap={2}>
+        <Grid item xs={12} md={6} mt={desktopView ? 0 : 3}>
+          <Stack
+            direction="column"
+            sx={{ height: desktopView ? "100%" : 500 }}
+            gap={2}
+          >
             <Box
               sx={{
                 position: "relative",

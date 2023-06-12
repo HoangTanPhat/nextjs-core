@@ -8,7 +8,7 @@ import * as yup from "yup";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import FormField from "@/shared-components/FormField";
-import { useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 
@@ -31,6 +31,7 @@ const schemaSubmitContactForm = yup.object({
 
 export default function ContactFormSection() {
   const theme = useTheme();
+  const desktopView = useMediaQuery("(min-width:1024px)");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -61,8 +62,9 @@ export default function ContactFormSection() {
         title="Find out the approximate cots of your travel plan"
         sx={{
           textAlign: "left",
-          maxWidth: "50%",
+          maxWidth: desktopView ? "50%" : "none",
           m: 0,
+          fontSize: 36,
         }}
       />
       <Grid
@@ -72,7 +74,7 @@ export default function ContactFormSection() {
           boxShadow: theme.shadows[24],
         }}
       >
-        <Grid item xs={5}>
+        <Grid item xs={0} sm={5}>
           <Box
             sx={{
               position: "relative",
@@ -90,7 +92,7 @@ export default function ContactFormSection() {
             />
           </Box>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12} sm={7}>
           <form
             style={{
               display: "flex",
@@ -101,8 +103,8 @@ export default function ContactFormSection() {
             }}
             onSubmit={handleSubmit(handleContact)}
           >
-            <Grid container columnSpacing={4}>
-              <Grid item xs={12} md={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
                 <FormField
                   label="Sender name"
                   placeholder="Hoang Tan Phat"
@@ -119,7 +121,7 @@ export default function ContactFormSection() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} sm={6}>
                 <FormField
                   label="Email"
                   placeholder="abc@gmail.com"

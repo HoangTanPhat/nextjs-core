@@ -25,7 +25,14 @@ export default function BannerSection() {
           alignItems: "center",
         }}
       >
-        <Box maxWidth="40%">
+        <Box
+          sx={{
+            maxWidth: {
+              sm: "70%",
+              lg: "40%",
+            },
+          }}
+        >
           <Typography variant="h1" fontWeight={700} fontSize={70} color="white">
             Quickest & safest delivery
           </Typography>

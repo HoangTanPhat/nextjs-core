@@ -1,4 +1,4 @@
-import { SxProps, Theme } from "@mui/material";
+import { SxProps, Theme, useMediaQuery } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
@@ -7,11 +7,12 @@ interface SectionTitleProps {
   sx?: SxProps<Theme>;
 }
 export default function SectionTitle({ sx = [], title }: SectionTitleProps) {
+  const desktopView = useMediaQuery("(min-width:1024px)");
   return (
     <Typography
       variant="h2"
-      fontSize={36}
-      maxWidth="60%"
+      fontSize={desktopView ? 36 : 24}
+      maxWidth={desktopView ? "60%" : "none"}
       textAlign="center"
       fontWeight="bold"
       margin="auto"

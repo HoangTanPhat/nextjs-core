@@ -12,18 +12,21 @@ import NavBarButton from "./NavBarButton";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
 import { Typography, useScrollTrigger } from "@mui/material";
 import Logo from "../Logo";
+import XMenuIcon from "../icons/XMenuIcon";
+import MenuIcon from "../icons/MenuIcon";
 
 interface Props {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
+  open?: boolean;
   window?: () => Window;
   children?: React.ReactElement;
 }
 
 function ElevationScroll(props: Props) {
-  const { children, window } = props;
+  const { children, window, open } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -45,14 +48,18 @@ function ElevationScroll(props: Props) {
 
   if (!children) return;
   return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
+    elevation: trigger && !open ? 4 : 0,
     sx: [
       {
         ...(Array.isArray(children.props.sx)
           ? children.props.sx
           : [children.props.sx]),
-        backgroundColor: trigger ? "rgba(0,0,0,0.4)" : "transparent",
-        backdropFilter: trigger ? "blur(20px)" : "none",
+        backgroundColor: !open
+          ? trigger
+            ? "rgba(0,0,0,0.4)"
+            : "transparent"
+          : "rgba(0,0,0,0.8)",
+        backdropFilter: trigger ? "blur(24px)" : "none",
         ".menu-items button > h6": {
           color: trigger ? "#FFBA00" : "white",
         },
@@ -94,12 +101,12 @@ export default function Header(props?: Props) {
     <Disclosure as="nav">
       {({ open }) => (
         <header className="fixed inset-x-0 top-0 z-[999]">
-          <ElevationScroll {...props}>
+          <ElevationScroll {...props} open={open}>
             <AppBar
               position="fixed"
               component="nav"
               elevation={0}
-              sx={() => ({
+              sx={(theme) => ({
                 m: "auto",
                 backgroundColor: "transparent !important",
                 zIndex: 10,
@@ -129,11 +136,11 @@ export default function Header(props?: Props) {
                     aria-label="menu"
                     className="lg:hidden absolute right-4 inline-flex items-center justify-center text-neutral-50"
                   >
-                    {/* {open ? (
-                    <XMenuIcon className="md:hover:fill-primary-50 fill-neutral-50" />
-                  ) : (
-                    <MenuIcon className="md:hover:fill-primary-50 fill-neutral-50" />
-                  )} */}
+                    {open ? (
+                      <XMenuIcon className="md:hover:fill-primary-50 fill-neutral-50" />
+                    ) : (
+                      <MenuIcon className="md:hover:fill-primary-50 fill-neutral-50" />
+                    )}
                   </Disclosure.Button>
 
                   <Stack
@@ -179,6 +186,7 @@ export default function Header(props?: Props) {
                       variant="contained"
                       disableElevation
                       sx={{
+                        display: matches ? "flex" : "none",
                         px: 4,
                         borderRadius: 0,
                         fontWeight: 700,
@@ -195,7 +203,7 @@ export default function Header(props?: Props) {
 
           {/* Mobile menu button */}
 
-          <Disclosure.Panel className="lg:hidden mt-[72px] h-[calc(100vh-72px)] bg-[rgba(20,20,22,0.9)] px-6 backdrop-blur-sm">
+          <Disclosure.Panel className="lg:hidden mt-[80px] h-[calc(100vh-72px)] bg-[rgba(0,0,0,0.8)] px-6 backdrop-blur-xl">
             <div className="flex flex-col pb-6">
               <div className="overflow-x-none grow overflow-y-auto shadow-inner">
                 {allHeaders.map((item) => {
@@ -209,20 +217,17 @@ export default function Header(props?: Props) {
 
               <Button
                 variant="contained"
-                sx={(theme) => ({
+                disableElevation
+                sx={{
+                  mt: 2,
+                  px: 4,
                   py: 1.5,
-                  px: 3,
+                  borderRadius: 0,
+                  fontWeight: 700,
                   maxHeight: 48,
-                  backgroundColor: theme.palette.grey[50],
-                  color: "black",
-                  borderRadius: 10,
-                  "&:hover": {
-                    backgroundColor: theme.palette.grey[300],
-                  },
-                  whiteSpace: "nowrap",
-                })}
+                }}
               >
-                Contact
+                Talk to us
               </Button>
             </div>
           </Disclosure.Panel>

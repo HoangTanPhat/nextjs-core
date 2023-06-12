@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography/Typography";
 import React from "react";
 import CardContent from "@mui/material/CardContent";
 import SectionTitle from "@/shared-components/SectionTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface ServicesCardProps {
   title: string;
@@ -47,10 +48,16 @@ const ServicesCard = ({ title, desc }: ServicesCardProps) => {
 };
 
 export default function IntroductionSection() {
+  const desktopView = useMediaQuery("(min-width:1024px)");
   return (
     <Section>
-      <SectionTitle title="We create unforgettable adventures with unmatched excellence" />
-      <Grid container columnSpacing={2} mt={6}>
+      <SectionTitle
+        title="We create unforgettable adventures with unmatched excellence"
+        sx={{
+          fontSize: 36,
+        }}
+      />
+      <Grid container spacing={2} mt={desktopView ? 6 : 1}>
         {allServices.map(({ title, desc }, index) => {
           return (
             <Grid key={index} item xs={12} sm={4}>
