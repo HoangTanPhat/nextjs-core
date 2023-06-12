@@ -1,11 +1,14 @@
+import useOnScreen from "@/hooks/useOnScreen";
 import BannerSection from "./BannerSection";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
-import IntroductionSection from "./IntroductionSection";
-import CommitmentSection from "./CommitmentSection";
-import OurTeamSection from "./OurTeamSection";
-import TestimonialSection from "./TestimonialSection";
-import CallToActionSection from "./CallToActionSection";
-import ContactFormSection from "./ContactFormSection";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+const IntroductionSection = dynamic(() => import("./IntroductionSection"));
+const ContactFormSection = dynamic(() => import("./ContactFormSection"));
+const CallToActionSection = dynamic(() => import("./CallToActionSection"));
+const TestimonialSection = dynamic(() => import("./TestimonialSection"));
+const OurTeamSection = dynamic(() => import("./OurTeamSection"));
+const CommitmentSection = dynamic(() => import("./CommitmentSection"));
 
 export default function HomePage() {
   return (
