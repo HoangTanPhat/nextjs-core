@@ -2,7 +2,7 @@ import useOnScreen from "@/hooks/useOnScreen";
 import BannerSection from "../../shared-components/BannerSection";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { HomeProps } from "@/pages";
 const IntroductionSection = dynamic(() => import("./IntroductionSection"));
 const ContactFormSection = dynamic(() => import("./ContactFormSection"));
 const CallToActionSection = dynamic(() => import("./CallToActionSection"));
@@ -10,14 +10,13 @@ const TestimonialSection = dynamic(() => import("./TestimonialSection"));
 const OurTeamSection = dynamic(() => import("./OurTeamSection"));
 const CommitmentSection = dynamic(() => import("./CommitmentSection"));
 
-export default function HomePage() {
+export default function HomePage({ title, description }: HomeProps) {
   return (
     <LayoutContainer>
       <BannerSection
         homepage
-        title="Quickest & safest delivery"
-        description=" Our cutting-edge logistics system guarantees the fastest and most
-        secure delivery service available."
+        title={title}
+        description={description}
         url="/images/hero-banner-comz.jpeg"
       />
       <IntroductionSection />
@@ -25,7 +24,7 @@ export default function HomePage() {
       <OurTeamSection />
       <TestimonialSection />
       <CallToActionSection />
-      <ContactFormSection />
+      {/* <ContactFormSection /> */}
     </LayoutContainer>
   );
 }

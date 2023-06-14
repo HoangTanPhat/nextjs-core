@@ -1,9 +1,5 @@
-import { CacheProvider } from "@emotion/react";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { createEmotionCache } from "@/lib/emotion";
-import dynamic from "next/dynamic";
-
-const clientSideEmotionCache = createEmotionCache();
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 interface AllProvidersProps {
   children: React.ReactNode;
@@ -26,10 +22,8 @@ export default function AllProviders({ children }: AllProvidersProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CacheProvider value={clientSideEmotionCache}>
-        <CssBaseline />
-        {children}
-      </CacheProvider>
+      <CssBaseline />
+      {children}
     </ThemeProvider>
   );
 }

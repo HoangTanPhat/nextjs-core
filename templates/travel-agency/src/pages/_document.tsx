@@ -10,7 +10,7 @@ import Document, {
 import { CustomAppProps } from "./_app";
 import createEmotionServer from "@emotion/server/create-instance";
 import { AppType } from "next/app";
-import { createEmotionCache } from "@/lib/emotion";
+import createEmotionCache from "@/lib/emotion";
 
 CustomDocument.getInitialProps = async (ctx: DocumentContext) => {
   const originalRenderPage = ctx.renderPage;
@@ -63,21 +63,7 @@ export default function CustomDocument({
         <meta name="emotion-insertion-point" content="" />
         <link
           rel="preload"
-          href="/fonts/SVN-Gilroy-Black.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
           href="/fonts/SVN-Gilroy-Bold.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SVN-Gilroy-Heavy.otf"
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
@@ -103,6 +89,7 @@ export default function CustomDocument({
           type="font/otf"
           crossOrigin="anonymous"
         />
+
         <link
           rel="preload"
           href="/fonts/SVN-Gilroy-SemiBold.otf"
@@ -117,20 +104,7 @@ export default function CustomDocument({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/fonts/SVN-Gilroy-XBold.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SVN-Gilroy-Xlight.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        />
+
         {emotionStyleTags}
       </Head>
       <body>

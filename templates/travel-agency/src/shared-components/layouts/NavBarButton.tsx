@@ -1,8 +1,8 @@
 import Button from "@mui/material/Button/Button";
 import Typography from "@mui/material/Typography/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Link from "next/link";
 import React from "react";
+import Link from "../Link";
 
 interface NavBarButtonProps {
   title: string;
@@ -21,7 +21,7 @@ export default function NavBarButton({
   const desktopView = useMediaQuery("(min-width:1024px)");
 
   return (
-    <Link href={href} passHref title={title} aria-label={title} scroll={false}>
+    <Link href={href} legacyBehavior title={title} aria-label={title}>
       <Button
         fullWidth
         sx={(theme) => ({

@@ -13,50 +13,19 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import EastIcon from "@mui/icons-material/East";
 import Divider from "@mui/material/Divider";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { BlogProps } from "@/pages/blog";
 
-export default function BlogPage() {
-  const latestBlogData = [
-    {
-      title: "Top Adventure Travel Destinations",
-      date: "11/06/2023",
-      thumbnail: "/images/tourist-1.jpg",
-    },
-    {
-      title: "Family-Friendly Vacation Spots",
-      date: "10/06/2023",
-      thumbnail: "/images/tourist-2.jpg",
-    },
-    {
-      title: "Travel Photography Tips",
-      date: "09/06/2023",
-      thumbnail: "/images/commitment.jpg",
-    },
-  ];
+interface BlogPageProps extends BlogProps {}
 
-  const othersBlogsData = [
-    {
-      title: "Top Adventure Travel Destinations",
-      date: "11/06/2023",
-      thumbnail: "/images/tourist-1.jpg",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    },
-    {
-      title: "Top Adventure Travel Destinations",
-      date: "11/06/2023",
-      thumbnail: "/images/tourist-1.jpg",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    },
-    {
-      title: "Top Adventure Travel Destinations",
-      date: "11/06/2023",
-      thumbnail: "/images/tourist-1.jpg",
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    },
-  ];
-
+export default function BlogPage({
+  title,
+  latestBlogData,
+  othersBlogData,
+}: BlogPageProps) {
   return (
     <LayoutContainer>
-      <BannerSection title="Our blog" url="/images/blog-banner.jpeg" />
+      <BannerSection title={title} url="/images/blog-banner.jpeg" />
       <Section>
         <Grid
           container
@@ -70,18 +39,21 @@ export default function BlogPage() {
               <Stack
                 flexDirection="column"
                 justifyContent="center"
-                height="100%"
                 gap={2}
                 sx={{
                   backgroundImage: "url('/images/contact-form.jpeg')",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
-                  backgroundPosition: "200px top",
+                  backgroundPosition: {
+                    xs: "center",
+                    sm: "200px top",
+                  },
                   position: "relative",
                   height: 600,
+                  width: "100%",
                 }}
               >
-                <div className="absolute bg-gradient-to-r from-white top-0 via-white via-[300px] bottom-0 left-0 right-0 z-0 h-full w-full"></div>
+                <div className="absolute bg-gradient-to-r from-white top-0 via-white via-[40%] bottom-0 left-0 right-0 z-0 h-full w-full"></div>
 
                 <Chip
                   label="Travel Guides"
@@ -95,7 +67,15 @@ export default function BlogPage() {
                   }}
                 />
 
-                <Box sx={{ width: "60%", zIndex: 10 }}>
+                <Box
+                  sx={{
+                    width: {
+                      xs: "100%",
+                      sm: "60%",
+                    },
+                    zIndex: 10,
+                  }}
+                >
                   <Typography
                     variant="h2"
                     fontWeight="bold"
@@ -133,29 +113,6 @@ export default function BlogPage() {
                   </Button>
                 </Box>
               </Stack>
-              {/* <Typography variant="h2" fontWeight="bold" color="#FFBA00">
-                  Latest news
-                </Typography> */}
-              {/* <Grid item xs={6}>
-                <Box
-                  sx={{
-                    position: "relative",
-                    height: 600,
-                    width: "100%",
-                    zIndex: -1,
-                  }}
-                >
-                  <div className="absolute bg-gradient-to-r from-white top-0 bottom-0 left-0 right-0 z-50 h-full w-full"></div>
-                  <Image
-                    src="/images/contact-form.jpeg"
-                    alt="Contact form"
-                    fill
-                    style={{
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              </Grid> */}
             </Grid>
           </Grid>
           <Grid item xs={12} lg={5}>
@@ -172,12 +129,26 @@ export default function BlogPage() {
               const { title, date, thumbnail } = blog;
               return (
                 <Fragment key={index}>
-                  <Stack direction="row" gap={3}>
+                  <Stack
+                    gap={3}
+                    sx={{
+                      flexDirection: {
+                        xs: "column",
+                        sm: "row",
+                      },
+                    }}
+                  >
                     <Box
                       sx={{
                         position: "relative",
-                        height: 150,
-                        aspectRatio: "4/3",
+                        height: {
+                          xs: "100%",
+                          sm: 150,
+                        },
+                        aspectRatio: {
+                          xs: "4/2.5",
+                          sm: "4/3",
+                        },
                         zIndex: -1,
                       }}
                     >
@@ -207,7 +178,16 @@ export default function BlogPage() {
                         {date}
                       </Typography>
                     </Stack>
-                    <EastIcon />
+                    <Box
+                      sx={{
+                        display: {
+                          xs: "none",
+                          sm: "block",
+                        },
+                      }}
+                    >
+                      <EastIcon />
+                    </Box>
                   </Stack>
                   {latestBlogData.length > index + 1 ? (
                     <Divider sx={{ my: 3 }} />
@@ -227,7 +207,7 @@ export default function BlogPage() {
           }}
         />
         <Grid container spacing={4}>
-          {othersBlogsData.map((blog, index) => {
+          {othersBlogData.map((blog, index) => {
             const { title, date, thumbnail, desc } = blog;
             return (
               <Grid

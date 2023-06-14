@@ -1,1 +1,1 @@
-export { createEmotionCache } from './createEmotionCache';
+export { default } from './createEmotionCache';

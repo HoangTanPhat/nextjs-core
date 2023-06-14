@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function TestimonialSection() {

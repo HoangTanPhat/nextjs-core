@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Gilroy'),
-    url(/fonts/SVN-Gilroy-Thin.otf) format('truetype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 200;
-  src: local('Gilroy'),
-    url(/fonts/SVN-Gilroy-Xlight.otf) format('truetype');
-  font-display: swap;
-}
 
 @font-face {
   font-family: 'Gilroy';
@@ -62,24 +45,6 @@
   font-weight: 700;
   src: local('Gilroy'),
     url(/fonts/SVN-Gilroy-Bold.otf) format('truetype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Gilroy'),
-    url(/fonts/SVN-Gilroy-Black.otf) format('truetype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 900;
-  src: local('Gilroy'),
-    url(/fonts/SVN-Gilroy-Heavy.otf) format('truetype');
   font-display: swap;
 }
 

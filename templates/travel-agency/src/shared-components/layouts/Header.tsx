@@ -4,7 +4,6 @@ import Box from "@mui/material/Box/Box";
 import Button from "@mui/material/Button/Button";
 import Container from "@mui/material/Container/Container";
 import Stack from "@mui/material/Stack/Stack";
-import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import Image from "next/legacy/image";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -14,6 +13,7 @@ import { Typography, useScrollTrigger } from "@mui/material";
 import Logo from "../Logo";
 import XMenuIcon from "../icons/XMenuIcon";
 import MenuIcon from "../icons/MenuIcon";
+import Link from "../Link";
 
 interface Props {
   /**

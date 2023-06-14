@@ -1,11 +1,14 @@
-import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import { createEmotionCache } from "@/lib/emotion";
+import createEmotionCache from "@/lib/emotion";
 import dynamic from "next/dynamic";
 import localFont from "@next/font/local";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -13,14 +16,6 @@ const AllProviders = dynamic(() => import("@/context/AllProviders"));
 
 const gilroy = localFont({
   src: [
-    {
-      path: "../../public/fonts/SVN-Gilroy-Thin.otf",
-      weight: "100",
-    },
-    {
-      path: "../../public/fonts/SVN-Gilroy-Xlight.otf",
-      weight: "200",
-    },
     {
       path: "../../public/fonts/SVN-Gilroy-Light.otf",
       weight: "300",
@@ -41,14 +36,6 @@ const gilroy = localFont({
       path: "../../public/fonts/SVN-Gilroy-Bold.otf",
       weight: "700",
     },
-    {
-      path: "../../public/fonts/SVN-Gilroy-Black.otf",
-      weight: "800",
-    },
-    {
-      path: "../../public/fonts/SVN-Gilroy-Heavy.otf",
-      weight: "200",
-    },
   ],
   variable: "--font-gilroy",
 });
@@ -62,17 +49,47 @@ export default function App({
   pageProps,
   emotionCache = clientSideEmotionCache,
 }: CustomAppProps) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  NProgress.configure({ showSpinner: false });
+
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      setLoading(true);
+      NProgress.start();
+      console.log("loading start", loading);
+    };
+
+    const handleStop = (url: string) => {
+      setLoading(false);
+      NProgress.done();
+      console.log("loading stop", loading);
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleStop);
+    router.events.on("routeChangeError", handleStop);
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleStop);
+      router.events.off("routeChangeError", handleStop);
+    };
+  }, [loading, router.events]);
+
   return (
-    <AllProviders>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta
           name="viewport"
           content="width=device-width,initial-scale=1,viewport-fit=cover"
         />
       </Head>
-      <main className={`${gilroy.variable} font-gilroy`}>
-        <Component {...pageProps} />
-      </main>
-    </AllProviders>
+      <AllProviders>
+        <main className={`${gilroy.variable} font-gilroy min-w-[360px]`}>
+          <Component {...pageProps} />
+        </main>
+      </AllProviders>
+    </CacheProvider>
   );
 }

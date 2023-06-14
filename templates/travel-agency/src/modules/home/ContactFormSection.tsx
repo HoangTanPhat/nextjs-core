@@ -1,14 +1,15 @@
 import SectionTitle from "@/shared-components/SectionTitle";
 import Section from "@/shared-components/layouts/Section";
 import Grid from "@mui/material/Grid";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import FormField from "@/shared-components/FormField";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+
 import Box from "@mui/material/Box";
 import Image from "next/image";
 
@@ -30,7 +31,6 @@ const schemaSubmitContactForm = yup.object({
 });
 
 export default function ContactFormSection() {
-  const theme = useTheme();
   const desktopView = useMediaQuery("(min-width:1024px)");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -69,10 +69,10 @@ export default function ContactFormSection() {
       />
       <Grid
         container
-        sx={{
+        sx={(theme) => ({
           mt: 4,
           boxShadow: theme.shadows[24],
-        }}
+        })}
       >
         <Grid item xs={0} sm={5}>
           <Box
@@ -145,7 +145,7 @@ export default function ContactFormSection() {
               disableElevation
               //   loading={isLoading || isSubmitting}
               //   endIcon={<ArrowRightIcon />}
-              sx={{
+              sx={(theme) => ({
                 fontWeight: 700,
                 ml: "auto",
                 backgroundColor: theme.palette.primary.main,
@@ -158,7 +158,7 @@ export default function ContactFormSection() {
                   color: "white",
                   opacity: 0.4,
                 },
-              }}
+              })}
               //   disabled={!isValid}
             >
               Send request
