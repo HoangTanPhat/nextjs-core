@@ -12,7 +12,7 @@ import {
 interface FormFieldProps {
   label: string;
   placeholder: string;
-  value: any;
+  value?: string;
   register?: UseFormRegisterReturn;
   sx?: SxProps<Theme>;
   multiline?: boolean;

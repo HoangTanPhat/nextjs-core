@@ -13,7 +13,7 @@ import { Typography, useScrollTrigger } from "@mui/material";
 import Logo from "../Logo";
 import XMenuIcon from "../icons/XMenuIcon";
 import MenuIcon from "../icons/MenuIcon";
-import Link from "../Link";
+import Link from "next/link";
 
 interface Props {
   /**
@@ -185,7 +185,9 @@ export default function Header(props?: Props) {
                     <Button
                       variant="contained"
                       disableElevation
+                      color="primary"
                       sx={{
+                        fontSize: 16,
                         display: matches ? "flex" : "none",
                         px: 4,
                         borderRadius: 0,

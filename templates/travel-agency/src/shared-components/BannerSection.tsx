@@ -1,7 +1,5 @@
-import Box from "@mui/material/Box/Box";
-import Container from "@mui/material/Container/Container";
-import Typography from "@mui/material/Typography/Typography";
-import React from "react";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 interface BannerSectionProps {
   homepage?: boolean;
@@ -45,12 +43,14 @@ export default function BannerSection({
             },
           }}
         >
-          <Typography variant="h1" fontWeight={700} fontSize={70} color="white">
-            {title}
-          </Typography>
-          <Typography color="white" maxWidth="80%" my={4}>
-            {description}
-          </Typography>
+          <h1 className="text-7xl font-gilroy font-bold text-white">{title}</h1>
+          {/* <Typography
+            variant="h1"
+            fontWeight={700}
+            fontSize={70}
+            color="white"
+          ></Typography> */}
+          <h4 className="max-w-[80%] text-white my-4">{description}</h4>
         </Box>
       </Container>
     </section>

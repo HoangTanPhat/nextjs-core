@@ -1,8 +1,8 @@
 import useOnScreen from "@/hooks/useOnScreen";
-import BannerSection from "../../shared-components/BannerSection";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import dynamic from "next/dynamic";
 import { HomeProps } from "@/pages";
+import BannerSection from "@/shared-components/BannerSection";
 const IntroductionSection = dynamic(() => import("./IntroductionSection"));
 const ContactFormSection = dynamic(() => import("./ContactFormSection"));
 const CallToActionSection = dynamic(() => import("./CallToActionSection"));
@@ -17,14 +17,14 @@ export default function HomePage({ title, description }: HomeProps) {
         homepage
         title={title}
         description={description}
-        url="/images/hero-banner-comz.jpeg"
+        url="/images/hero-banner-comz.webp"
       />
       <IntroductionSection />
       <CommitmentSection />
       <OurTeamSection />
       <TestimonialSection />
       <CallToActionSection />
-      {/* <ContactFormSection /> */}
+      <ContactFormSection />
     </LayoutContainer>
   );
 }

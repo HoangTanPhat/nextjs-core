@@ -1,8 +1,8 @@
 import Button from "@mui/material/Button/Button";
 import Typography from "@mui/material/Typography/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Link from "next/link";
 import React from "react";
-import Link from "../Link";
 
 interface NavBarButtonProps {
   title: string;

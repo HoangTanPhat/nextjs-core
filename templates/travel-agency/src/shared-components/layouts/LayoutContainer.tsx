@@ -14,7 +14,7 @@ export default function LayoutContainer({ children }: LayoutContainerProps) {
     <>
       <NextSeo title="Nextjs Blog Template" />
       <Header />
-      <Box>{children}</Box>
+      {children}
       <Footer />
     </>
   );

@@ -4,7 +4,7 @@ import Head from "next/head";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import createEmotionCache from "@/lib/emotion";
 import dynamic from "next/dynamic";
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";

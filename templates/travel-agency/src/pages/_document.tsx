@@ -60,8 +60,7 @@ export default function CustomDocument({
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="emotion-insertion-point" content="" />
-        <link
+        {/* <link
           rel="preload"
           href="/fonts/SVN-Gilroy-Bold.otf"
           as="font"
@@ -103,8 +102,8 @@ export default function CustomDocument({
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
-        />
-
+        /> */}
+        <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}
       </Head>
       <body>

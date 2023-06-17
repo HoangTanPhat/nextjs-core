@@ -38,22 +38,69 @@ const nextConfig = {
 
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // if (!isServer) {
+    //   config.optimization.splitChunks.cacheGroups = {
+    //     ...config.optimization.splitChunks.cacheGroups,
+    //     "@mui": {
+    //       test: /[\\/]node_modules[\\/](@mui|@mui\/material)[\\/]/,
+    //       name: "@mui",
+    //       priority: 10,
+    //       reuseExistingChunk: false,
+    //     },
+    //     next: {
+    //       test: /[\\/]node_modules[\\/](next)[\\/]/,
+    //       name: "next",
+    //       priority: 10,
+    //       reuseExistingChunk: true,
+    //     },
+    //     "react-dom": {
+    //       test: /[\\/]node_modules[\\/](react-dom)[\\/]/,
+    //       name: "react-dom",
+    //       priority: 40,
+    //       reuseExistingChunk: true,
+    //     },
+    //   };
+    // }
+
+    // config.optimization = {
+    //   mergeDuplicateChunks: true,
+    // };
+    // if (!isServer) {
     //   // Fixes npm packages that depend on `fs` module
     //   // @link https://github.com/vercel/next.js/issues/36514#issuecomment-1112074589
     //   config.resolve.fallback = { ...config.resolve.fallback, fs: false };
     // }
 
-    // config.optimization = {
-    //   // minimize: true,
-    //   // minimizer: [new TerserPlugin()],
-    //   // runtimeChunk: "single",
-    //   // splitChunks: {
-    //   //   chunks: "all",
-    //   // },
-    // };
+    // config.module.rules.push({
+    //   test: /.css$/,
+    //   use: [MiniCssExtractPlugin.loader, "css-loader"],
+    // });
 
+    config.optimization = {
+      mergeDuplicateChunks: true,
+      // // minimize: true,
+      minimizer: [new TerserPlugin()],
+      // runtimeChunk: "single",
+      splitChunks: {
+        // chunks: "all",
+        cacheGroups: {
+          "@mui": {
+            test: /[\\/]node_modules[\\/](@mui|@mui\/material)[\\/]/,
+            name: "mui",
+            priority: 10,
+            chunks: "initial",
+          },
+          "react-dom": {
+            test: /[\\/]node_modules[\\/](react-dom)[\\/]/,
+            name: "react-dom",
+            priority: 40,
+            chunks: "initial",
+          },
+        },
+      },
+    };
     return config;
   },
+
   async headers() {
     return [
       {

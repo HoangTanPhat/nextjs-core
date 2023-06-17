@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState, useEffect, useRef, useCallback } from "react";
-
+import Image from "next/image";
 export default function TestimonialSection() {
   const [onHover, setOnHover] = useState<number | undefined>(undefined);
   const desktopView = useMediaQuery("(min-width:1024px)");
@@ -109,9 +109,9 @@ export default function TestimonialSection() {
 
               <Box
                 sx={{
-                  backgroundImage: `url('/images/${link}.jpeg')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  // backgroundImage: `url('/images/${link}.jpeg')`,
+                  // backgroundSize: "cover",
+                  // backgroundPosition: "center",
                   position: "relative",
                   width: "100%",
                   height: desktopView ? 500 : 300,
@@ -119,6 +119,15 @@ export default function TestimonialSection() {
                   p: 3,
                 }}
               >
+                <Image
+                  src={`/images/${link}.jpeg`}
+                  alt={name}
+                  fill
+                  sizes="500"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
                 <div
                   className={`${
                     onHover === index + 1

@@ -16,11 +16,13 @@ import Image from "next/image";
 export interface ContactFormData {
   name: string;
   mail: string;
-  phone?: number | undefined;
+  phone: string;
   role: string;
   reason: string;
   message: string;
 }
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const schemaSubmitContactForm = yup.object({
   name: yup.string().required("Please fill name"),
@@ -28,6 +30,12 @@ const schemaSubmitContactForm = yup.object({
   message: yup.string().required("Please fill"),
   role: yup.string().required("Please fill"),
   reason: yup.string().required("Please fill"),
+  phone: yup
+    .string()
+    .notRequired()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .min(10, "too short")
+    .max(10, "too long"),
 });
 
 export default function ContactFormSection() {
@@ -39,7 +47,7 @@ export default function ContactFormSection() {
     defaultValues: {
       name: "",
       mail: "",
-      phone: undefined,
+      phone: "",
       role: "",
       reason: "",
       message: "",
@@ -152,7 +160,7 @@ export default function ContactFormSection() {
                 px: 3,
                 py: 2,
                 borderRadius: 0,
-                fontSize: 14,
+                fontSize: 16,
                 width: "max-content",
                 "&.Mui-disabled": {
                   color: "white",

@@ -45,6 +45,7 @@ export default function CallToActionSection() {
           variant="contained"
           disableElevation
           sx={{
+            fontSize: 16,
             px: 4,
             py: 3,
             borderRadius: 0,
