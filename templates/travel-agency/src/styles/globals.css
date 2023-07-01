@@ -48,6 +48,10 @@
   font-display: swap;
 }
 
+body {
+@apply bg-black;
+}
+
 #__next {
-@apply font-gilroy;
+@apply font-gilroy bg-white;
 }

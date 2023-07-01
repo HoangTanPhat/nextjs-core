@@ -1,39 +1,47 @@
+import { ListPost, PostsResponse } from "@/api/cms/types";
+import { getPostsFn } from "@/api/cms/useGetPosts";
+import { DefaultCmsDataResponse } from "@/api/types";
 import BlogPage from "@/modules/blog/BlogPage";
 import { latestBlogData } from "@/modules/blog/latestBlogData";
-import { othersBlogData } from "@/modules/blog/othersBlogData";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export type BlogProps = {
+export type BlogsProps = {
   // Declare Home props
   title: string;
   description?: string;
-  latestBlogData: {
-    title: string;
-    date: string;
-    thumbnail: string;
-  }[];
-  othersBlogData: {
-    title: string;
-    date: string;
-    thumbnail: string;
-    desc: string;
-  }[];
+  allBlogPosts: ListPost[];
 };
 
-export default function Blog(
+export default function Blogs(
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   return <BlogPage {..._props} />;
 }
 
-export const getServerSideProps: GetServerSideProps<BlogProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<BlogsProps> = async () => {
+  let postsResponse;
+  const allBlogPosts: ListPost[] = [];
+  await getPostsFn()
+    .then((res) => {
+      postsResponse = res.data;
+      postsResponse.map((item) => {
+        return allBlogPosts.push({
+          title: item.attributes.title,
+          introduction_text: item.attributes.introduction_text,
+          slug: item.attributes.slug,
+          image: item.attributes.thumbnail_image.data.attributes.url,
+          categories: item.attributes.categories.data.map(
+            (item) => item.attributes.name
+          ),
+        });
+      });
+    })
+    .catch(() => (postsResponse = null));
+
   return {
     props: {
       title: "Our blog",
-      latestBlogData: latestBlogData,
-      othersBlogData: othersBlogData,
+      allBlogPosts: allBlogPosts,
     },
   };
 };

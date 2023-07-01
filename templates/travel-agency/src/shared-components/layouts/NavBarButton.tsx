@@ -31,6 +31,7 @@ export default function NavBarButton({
           position: "relative",
           textTransform: "capitalize",
           borderRadius: 0,
+          height: "100%",
           "&:hover": {
             backgroundColor: "transparent",
             "&:after": {

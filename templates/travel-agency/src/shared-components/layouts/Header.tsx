@@ -23,10 +23,11 @@ interface Props {
   open?: boolean;
   window?: () => Window;
   children?: React.ReactElement;
+  headerElevation?: boolean;
 }
 
 function ElevationScroll(props: Props) {
-  const { children, window, open } = props;
+  const { children, window, open, headerElevation } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -48,13 +49,15 @@ function ElevationScroll(props: Props) {
 
   if (!children) return;
   return React.cloneElement(children, {
-    elevation: trigger && !open ? 4 : 0,
+    elevation: (trigger && !open) || headerElevation ? 4 : 0,
     sx: [
       {
         ...(Array.isArray(children.props.sx)
           ? children.props.sx
           : [children.props.sx]),
-        backgroundColor: !open
+        backgroundColor: headerElevation
+          ? "black"
+          : !open
           ? trigger
             ? "rgba(0,0,0,0.4)"
             : "transparent"
@@ -105,21 +108,24 @@ export default function Header(props?: Props) {
             <AppBar
               position="fixed"
               component="nav"
-              elevation={0}
-              sx={(theme) => ({
+              elevation={props && props.headerElevation ? 4 : 0}
+              sx={() => ({
                 m: "auto",
-                backgroundColor: "transparent !important",
+                backgroundColor:
+                  props && props.headerElevation
+                    ? "black"
+                    : "transparent !important",
                 zIndex: 10,
               })}
             >
               <Toolbar
                 variant="dense"
                 sx={{
-                  py: 2,
                   justifyContent: "center",
                   maxWidth: 1280,
                   m: "auto",
                   width: "100%",
+                  height: 72,
                 }}
               >
                 <Stack
@@ -130,6 +136,7 @@ export default function Header(props?: Props) {
                   sx={{
                     maxWidth: 1280,
                     ml: 0,
+                    height: "100%",
                   }}
                 >
                   <Disclosure.Button
@@ -146,9 +153,11 @@ export default function Header(props?: Props) {
                   <Stack
                     direction="row"
                     justifyContent="space-between"
+                    alignItems="center"
                     flex={1}
                     sx={{
                       ml: "0 !important",
+                      height: "100%",
                     }}
                   >
                     <Box
@@ -170,9 +179,16 @@ export default function Header(props?: Props) {
                       sx={{
                         mr: 1,
                         display: matches ? "flex" : "none",
+                        height: "100%",
                       }}
                     >
-                      <Stack direction="row" spacing={2}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        sx={{
+                          height: "100%",
+                        }}
+                      >
                         {allHeaders.map((item) => {
                           return (
                             <div key={item.id} className="menu-items">
@@ -193,6 +209,7 @@ export default function Header(props?: Props) {
                         borderRadius: 0,
                         fontWeight: 700,
                         maxHeight: 48,
+                        py: "10px",
                       }}
                     >
                       Talk to us
@@ -205,7 +222,7 @@ export default function Header(props?: Props) {
 
           {/* Mobile menu button */}
 
-          <Disclosure.Panel className="lg:hidden mt-[80px] h-[calc(100vh-80px)] bg-[rgba(0,0,0,0.8)] px-6 backdrop-blur-xl">
+          <Disclosure.Panel className="lg:hidden mt-[72px] h-[calc(100vh-72px)] bg-[rgba(0,0,0,0.8)] px-6 backdrop-blur-xl">
             <div className="flex flex-col pb-6">
               <div className="overflow-x-none grow overflow-y-auto shadow-inner">
                 {allHeaders.map((item) => {

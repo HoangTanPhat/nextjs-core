@@ -6,12 +6,18 @@ interface BannerSectionProps {
   title: string;
   description?: string;
   url?: string;
+  position?: "top" | "bottom" | "center";
+  titleAlign?: "left" | "center" | "right";
+  descAlign?: "left" | "center" | "right";
 }
 export default function BannerSection({
   homepage,
   title = "Page title",
   description,
   url,
+  position = "top",
+  titleAlign = "left",
+  descAlign = "left",
 }: BannerSectionProps) {
   return (
     <section
@@ -19,7 +25,7 @@ export default function BannerSection({
         position: "relative",
         backgroundImage: `url('${url}')`,
         backgroundSize: "cover",
-        backgroundPosition: "top",
+        backgroundPosition: position,
         height: homepage ? "100vh" : 400,
       }}
     >
@@ -37,20 +43,37 @@ export default function BannerSection({
         <Box
           sx={{
             mt: !homepage ? "80px" : 0,
-            maxWidth: {
-              sm: "70%",
-              lg: "40%",
-            },
+            maxWidth: ["center", "right"].includes(titleAlign)
+              ? "none"
+              : {
+                  sm: "70%",
+                  lg: "40%",
+                },
+            width: "100%",
           }}
         >
-          <h1 className="text-7xl font-gilroy font-bold text-white">{title}</h1>
-          {/* <Typography
-            variant="h1"
-            fontWeight={700}
-            fontSize={70}
-            color="white"
-          ></Typography> */}
-          <h4 className="max-w-[80%] text-white my-4">{description}</h4>
+          <h1
+            className={`text-7xl font-gilroy font-bold text-white ${
+              titleAlign === "right"
+                ? "text-right"
+                : titleAlign === "center"
+                ? "text-center"
+                : "text-left"
+            }`}
+          >
+            {title}
+          </h1>
+          <h4
+            className={`max-w-[80%] text-white my-4 ${
+              descAlign === "right"
+                ? "text-right"
+                : descAlign === "center"
+                ? "text-center"
+                : "text-left"
+            }`}
+          >
+            {description}
+          </h4>
         </Box>
       </Container>
     </section>

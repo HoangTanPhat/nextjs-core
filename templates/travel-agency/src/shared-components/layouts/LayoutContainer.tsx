@@ -7,13 +7,17 @@ import Footer from "./Footer";
 
 interface LayoutContainerProps {
   children: React.ReactNode;
+  headerElevation?: boolean;
 }
 
-export default function LayoutContainer({ children }: LayoutContainerProps) {
+export default function LayoutContainer({
+  children,
+  headerElevation = false,
+}: LayoutContainerProps) {
   return (
     <>
       <NextSeo title="Nextjs Blog Template" />
-      <Header />
+      <Header headerElevation={headerElevation} />
       {children}
       <Footer />
     </>

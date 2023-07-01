@@ -1,10 +1,15 @@
+import { queryClient } from "@/lib/queryClient";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 // import CssBaseline from "@mui/material/CssBaseline";
 
 interface AllProvidersProps {
   children: React.ReactNode;
 }
 export default function AllProviders({ children }: AllProvidersProps) {
+  const [queryClientState] = useState(() => queryClient);
+
   const theme = createTheme({
     components: {
       MuiButton: {
@@ -34,9 +39,11 @@ export default function AllProviders({ children }: AllProvidersProps) {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      {/* <CssBaseline /> */}
-      {children}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClientState}>
+      <ThemeProvider theme={theme}>
+        {/* <CssBaseline /> */}
+        {children}
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

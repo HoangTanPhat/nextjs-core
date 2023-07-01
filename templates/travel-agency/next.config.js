@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const TerserPlugin = require("terser-webpack-plugin");
 
 const nextConfig = {
@@ -35,7 +38,29 @@ const nextConfig = {
       transform: "@mui/material/styles/{{member}}",
     },
   },
-
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: ["www.youtube.com", "res.cloudinary.com"],
+    path: "/_next/image",
+    loader: "default",
+    disableStaticImages: false,
+    minimumCacheTTL: 60,
+    formats: ["image/webp"],
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  // images: {
+  //   // formats: ["image/avif", "image/webp"],
+  //   remotePatterns: [
+  //     {
+  //       protocol: "http",
+  //       hostname: "localhost",
+  //       port: "1337",
+  //       pathname: "/uploads/**",
+  //     },
+  //   ],
+  // },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // if (!isServer) {
     //   config.optimization.splitChunks.cacheGroups = {
@@ -115,6 +140,7 @@ const nextConfig = {
     ];
   },
 };
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
