@@ -22,6 +22,7 @@ export type ListPost = {
     slug: string;
     image: string | null;
     categories?: string[];
+    date: string;
 }
 
 export type Image = {

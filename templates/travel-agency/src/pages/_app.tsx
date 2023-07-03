@@ -86,7 +86,7 @@ export default function App({
         />
       </Head>
       <AllProviders>
-        <main className={`${gilroy.variable} font-gilroy min-w-[360px]`}>
+        <main className={`${gilroy.variable} font-gilroy`}>
           <Component {...pageProps} />
         </main>
       </AllProviders>

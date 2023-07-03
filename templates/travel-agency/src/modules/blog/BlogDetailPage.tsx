@@ -2,10 +2,12 @@ import BannerSection from "@/shared-components/BannerSection";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import Section from "@/shared-components/layouts/Section";
 import { useRouter } from "next/router";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { DefaultCmsDataResponse } from "@/api/types";
 import { PostsResponse } from "@/api/cms/types";
+import dayjs from "dayjs";
+import SocialShare from "@/shared-components/SocialShare";
 
 type BlogDetailPageProps = {
   post: DefaultCmsDataResponse<PostsResponse> | null;
@@ -18,6 +20,7 @@ export default function BlogDetailPage({
   const contentContainerRef = useRef(null);
   const router = useRouter();
   const { slug } = router.query;
+
   let srcImg = "";
   useLayoutEffect(() => {
     if (contentContainerRef.current) {
@@ -54,9 +57,6 @@ export default function BlogDetailPage({
         else srcImg = thumbnail_image.data.attributes?.formats.thumbnail.url;
       }
     }
-
-    console.log(thumbnail_image);
-
     return (
       <LayoutContainer headerElevation={true}>
         <Section
@@ -80,7 +80,9 @@ export default function BlogDetailPage({
           </div>
 
           <div className="max-w-4xl m-auto bg-white rounded-xl -mt-20 z-10 relative p-10 flex flex-row gap-6">
-            <div className="w-1/12"></div>
+            <div className="w-1/12 pt-12 relative">
+              <SocialShare />
+            </div>
 
             {/* Blog content */}
             <div className="w-11/12">
@@ -93,7 +95,9 @@ export default function BlogDetailPage({
                   );
                 })}
 
-                <h6 className="text-sm text-gray-400">{createdAt}</h6>
+                <h6 className="text-sm text-gray-400">
+                  {dayjs(createdAt).format("DD/MM/YYYY").toString()}
+                </h6>
               </div>
               <div className="flex flex-row mb-6 gap-4 justify-between">
                 <h1 className="text-5xl font-bold">{title}</h1>

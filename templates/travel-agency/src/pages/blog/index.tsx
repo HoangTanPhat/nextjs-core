@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps<BlogsProps> = async () => {
           categories: item.attributes.categories.data.map(
             (item) => item.attributes.name
           ),
+          date: item.attributes.createdAt,
         });
       });
     })

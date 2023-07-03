@@ -14,13 +14,20 @@ import Divider from "@mui/material/Divider";
 import { BlogsProps } from "@/pages/blog";
 import Image from "next/image";
 import BlogItemSkeleton from "./BlogItemSkeleton";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
 type BlogPageProps = BlogsProps;
 
 export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
   const [loaded, setLoaded] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const [onHover, setOnHover] = useState<number | undefined>(undefined);
 
+  const imgRef = useRef<HTMLImageElement>(null);
+  const blogItemRef = useRef<HTMLDivElement>(null);
+
+  const { pathname } = useRouter();
   const onImageLoaded = () => setLoaded(true);
 
   React.useEffect(() => {
@@ -53,7 +60,7 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
         <Section>
           <Grid
             container
-            spacing={4}
+            spacing={{ xs: 0, sm: 4 }}
             sx={{
               mb: 3,
             }}
@@ -97,7 +104,6 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                             variant="filled"
                             sx={{
                               width: "fit-content",
-                              fontWeight: "bold",
                               backgroundColor: "#FFBA00",
                               color: "white",
                               zIndex: 10,
@@ -124,9 +130,12 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                     >
                       {allBlogPosts[0].title}
                     </Typography>
-                    <Typography variant="body1" className="line-clamp-4 mt-4">
-                      {allBlogPosts[0].introduction_text}
-                    </Typography>
+                    <p
+                      className="line-clamp-4 mt-4"
+                      dangerouslySetInnerHTML={{
+                        __html: allBlogPosts[0].introduction_text,
+                      }}
+                    ></p>
 
                     {/* <Typography
                     variant="body1"
@@ -136,7 +145,6 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                   >
                     Date: 12/06/2023
                   </Typography> */}
-
                     <Button
                       variant="contained"
                       disableElevation
@@ -148,7 +156,14 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                         fontWeight: 700,
                       }}
                     >
-                      Continue to read
+                      <Link
+                        href={{
+                          pathname: `${pathname}/${allBlogPosts[0].slug}`,
+                        }}
+                        passHref
+                      >
+                        Continue to read
+                      </Link>
                     </Button>
                   </Box>
                 </Stack>
@@ -168,19 +183,26 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
               {allBlogPosts
                 .filter((_, index) => index > 0 && index < 4)
                 .map((blog, index) => {
-                  const { title, image } = blog;
+                  const { title, image, categories, slug, date } = blog;
                   return (
-                    <Fragment key={index}>
-                      <Stack
-                        justifyContent="space-between"
-                        sx={{
-                          flexDirection: {
-                            xs: "column",
-                            sm: "row",
-                          },
+                    <div
+                      key={index}
+                      className="focus-within:outline-2 focus-within:outline focus-within:outline-offset-2 focus-within:rounded-md focus-within:outline-[#FFBA00]"
+                    >
+                      <Link
+                        href={{
+                          pathname: `${pathname}/${slug}`,
                         }}
+                        passHref
+                        onMouseEnter={() => setOnHover(index)}
+                        onMouseLeave={() => setOnHover(undefined)}
                       >
-                        <Stack direction="row" gap={3}>
+                        <Stack
+                          direction="row"
+                          gap={3}
+                          ref={blogItemRef}
+                          className={index === 0 ? "pb-6" : "py-6"}
+                        >
                           <Box
                             sx={{
                               position: "relative",
@@ -213,36 +235,57 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                               loading="lazy"
                             />
                           </Box>
-                          <Stack direction="column" gap={1}>
+                          <Stack
+                            direction="column"
+                            gap={1}
+                            justifyContent="space-between"
+                            flexGrow={1}
+                          >
                             <Typography
-                              className="line-clamp-2"
+                              className={`line-clamp-2 ${
+                                onHover === index && "text-[#FFBA00]"
+                              }`}
                               variant="h6"
                               fontWeight={700}
                             >
                               {title}
                             </Typography>
+                            <Stack
+                              direction="row"
+                              justifyContent={
+                                categories && categories.length
+                                  ? "space-between"
+                                  : "flex-end"
+                              }
+                              alignItems="center"
+                              sx={{
+                                width: "100%",
+                              }}
+                            >
+                              <div className="flex flex-row gap-1 flex-none">
+                                {categories && categories.length ? (
+                                  <h6 className="rounded-full text-sm bg-[#FFBA00] py-1 px-2 text-white">
+                                    {categories[0]}
+                                  </h6>
+                                ) : null}
+                              </div>
+
+                              <div className="text-sm text-gray-400 truncate ml-2 whitespace-nowrap flex-none">
+                                {dayjs(date).format("DD/MM/YYYY").toString()}
+                              </div>
+                            </Stack>
                           </Stack>
                         </Stack>
-                        <Box
-                          sx={{
-                            display: {
-                              xs: "none",
-                              sm: "block",
-                            },
-                          }}
-                        >
-                          <EastIcon />
-                        </Box>
-                      </Stack>
+                      </Link>
 
                       {/* <BlogItemSkeleton directionRow /> */}
 
                       {allBlogPosts.filter((_, index) => index > 0 && index < 4)
                         .length >
                       index + 1 ? (
-                        <Divider sx={{ my: 3 }} />
+                        <Divider />
                       ) : null}
-                    </Fragment>
+                    </div>
                   );
                 })}
             </Grid>
@@ -256,14 +299,20 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
               mb: 3,
             }}
           />
-          <Grid container spacing={4}>
+          <Grid
+            container
+            spacing={{
+              xs: 0,
+              sm: 4,
+            }}
+          >
             {allBlogPosts
               .filter((_, index) => index > 3)
               .map((blog, index) => {
-                const { title, introduction_text, image } = blog;
+                const { title, introduction_text, image, date, slug } = blog;
                 return (
                   <Grid
-                    key={index}
+                    key={index + 3}
                     item
                     xs={12}
                     md={4}
@@ -271,55 +320,60 @@ export default function BlogPage({ title, allBlogPosts }: BlogPageProps) {
                       height: "100%",
                     }}
                   >
-                    <Box
-                      sx={{
-                        position: "relative",
-                        width: "100%",
-                        aspectRatio: "4/2.5",
-                        zIndex: 1,
-                        mb: 3,
-                      }}
-                    >
-                      <Image
-                        src={
-                          image && image.toString()
-                            ? image.toString()
-                            : "/images/tourist-1.jpg"
-                        }
-                        alt={title}
-                        fill
-                        style={{
-                          objectFit: "cover",
+                    <div className="focus-within:outline-2 focus-within:outline focus-within:outline-offset-2 focus-within:rounded-md focus-within:outline-[#FFBA00] pb-2">
+                      <Link
+                        href={{
+                          pathname: `${pathname}/${slug}`,
                         }}
-                      />
-                    </Box>
-                    <Stack
-                      justifyContent="space-between"
-                      sx={{
-                        height: "100%",
-                      }}
-                    >
-                      <Typography
-                        className="line-clamp-2"
-                        variant="h6"
-                        fontWeight={700}
+                        passHref
+                        onMouseEnter={() => setOnHover(index + 3)}
+                        onMouseLeave={() => setOnHover(undefined)}
                       >
-                        {title}
-                      </Typography>
-                      <Typography className="line-clamp-4" variant="body1">
-                        {introduction_text}
-                      </Typography>
-
-                      {/* <Typography
-                      variant="body1"
-                      sx={(theme) => ({
-                        mt: 3,
-                        color: theme.palette.grey[400],
-                      })}
-                    >
-                      {date}
-                    </Typography> */}
-                    </Stack>
+                        <Box
+                          className="focus-within:outline-2"
+                          sx={{
+                            position: "relative",
+                            width: "100%",
+                            aspectRatio: "4/2.5",
+                            zIndex: 1,
+                            mb: 2,
+                          }}
+                        >
+                          <Image
+                            src={
+                              image && image.toString()
+                                ? image.toString()
+                                : "/images/tourist-1.jpg"
+                            }
+                            alt={title}
+                            fill
+                            style={{
+                              objectFit: "cover",
+                            }}
+                          />
+                        </Box>
+                        <Stack
+                          justifyContent="space-between"
+                          sx={{
+                            height: "100%",
+                          }}
+                        >
+                          <h6
+                            className={`line-clamp-2 font-bold text-xl ${
+                              onHover === index + 3 && "text-[#FFBA00]"
+                            }`}
+                          >
+                            {title}
+                          </h6>
+                          <p className="line-clamp-2 mb-6">
+                            {introduction_text}
+                          </p>
+                          <h6 className="text-sm text-gray-400">
+                            {dayjs(date).format("DD/MM/YYYY").toString()}
+                          </h6>
+                        </Stack>
+                      </Link>
+                    </div>
                   </Grid>
                 );
               })}

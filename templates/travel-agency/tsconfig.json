@@ -3,6 +3,7 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "baseUrl": "./src",
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,7 +17,15 @@
     "incremental": true,
     "jsxImportSource": "@emotion/react",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/api/*": ["./api/*"],
+      "@/context/*": ["./context/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/modules/*": ["./modules/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/shared-components/*": ["./shared-components/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/public/*": ["../public/*"]
     }
   },
   "include": [
@@ -27,5 +36,5 @@
     "**/*.jsx",
     "**/*.json"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["**/node_modules"]
 }

@@ -1,8 +1,8 @@
 import useOnScreen from "@/hooks/useOnScreen";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import dynamic from "next/dynamic";
-import { HomeProps } from "@/pages";
 import BannerSection from "@/shared-components/BannerSection";
+import { HomeProps } from "@/pages/index";
 const IntroductionSection = dynamic(() => import("./IntroductionSection"));
 const ContactFormSection = dynamic(() => import("./ContactFormSection"));
 const CallToActionSection = dynamic(() => import("./CallToActionSection"));

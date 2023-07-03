@@ -100,6 +100,30 @@ const nextConfig = {
     //   use: [MiniCssExtractPlugin.loader, "css-loader"],
     // });
 
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: /\.(js|ts)x?$/,
+      use: [
+        {
+          loader: "@svgr/webpack",
+          // https://react-svgr.com/docs/webpack/#passing-options
+          options: {
+            svgo: true,
+            // @link https://github.com/svg/svgo#configuration
+            svgoConfig: {
+              multipass: false,
+              datauri: "base64",
+              js2svg: {
+                indent: 2,
+                pretty: false,
+              },
+            },
+            esModule: false,
+          },
+        },
+      ],
+    });
+
     config.optimization = {
       mergeDuplicateChunks: true,
       // // minimize: true,
@@ -123,6 +147,7 @@ const nextConfig = {
         },
       },
     };
+
     return config;
   },
 
