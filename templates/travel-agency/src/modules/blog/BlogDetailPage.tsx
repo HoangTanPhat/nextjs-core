@@ -2,7 +2,7 @@ import BannerSection from "@/shared-components/BannerSection";
 import LayoutContainer from "@/shared-components/layouts/LayoutContainer";
 import Section from "@/shared-components/layouts/Section";
 import { useRouter } from "next/router";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { DefaultCmsDataResponse } from "@/api/types";
 import { PostsResponse } from "@/api/cms/types";
@@ -22,7 +22,8 @@ export default function BlogDetailPage({
   const { slug } = router.query;
 
   let srcImg = "";
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     if (contentContainerRef.current) {
       const select = contentContainerRef.current as HTMLDivElement;
       select.querySelectorAll("p")?.forEach((ele) => {
@@ -40,6 +41,7 @@ export default function BlogDetailPage({
       blog_content,
       createdAt,
       categories,
+      conclution_text,
     } = post.attributes;
 
     if (
@@ -57,8 +59,16 @@ export default function BlogDetailPage({
         else srcImg = thumbnail_image.data.attributes?.formats.thumbnail.url;
       }
     }
+
     return (
-      <LayoutContainer headerElevation={true}>
+      <LayoutContainer
+        headerElevation={true}
+        title={title}
+        description={
+          introduction_text || "A travel agancy that gives you the best"
+        }
+        thumbnail={srcImg}
+      >
         <Section
           sx={{
             mt: "72px",
@@ -102,28 +112,40 @@ export default function BlogDetailPage({
               <div className="flex flex-row mb-6 gap-4 justify-between">
                 <h1 className="text-5xl font-bold">{title}</h1>
               </div>
-              <p
-                className="leading-8 mb-8 first-letter:text-7xl first-letter:font-bold first-letter:text-black
+              {introduction_text && (
+                <p
+                  className="leading-7 mb-6 first-letter:text-7xl first-letter:font-bold first-letter:text-black
               first-letter:mr-3 first-letter:float-left"
-                dangerouslySetInnerHTML={{
-                  __html: introduction_text,
-                }}
-              ></p>
-              {blog_content &&
-                blog_content.map(({ heading, details }) => {
-                  return (
-                    <>
-                      <h2 className="text-2xl mb-8 font-bold">{heading}</h2>
-                      <div
-                        ref={contentContainerRef}
-                        className="leading-8"
-                        dangerouslySetInnerHTML={{
-                          __html: details,
-                        }}
-                      ></div>
-                    </>
-                  );
-                })}
+                  dangerouslySetInnerHTML={{
+                    __html: introduction_text,
+                  }}
+                ></p>
+              )}
+
+              <div id="main-content" ref={contentContainerRef}>
+                {blog_content &&
+                  blog_content.map(({ heading, details }) => {
+                    return (
+                      <>
+                        <h2 className="text-2xl mb-6 font-bold">{heading}</h2>
+                        <div
+                          className="leading-7"
+                          dangerouslySetInnerHTML={{
+                            __html: details,
+                          }}
+                        ></div>
+                      </>
+                    );
+                  })}
+              </div>
+              {conclution_text && (
+                <p
+                  className="leading-7 mb-6"
+                  dangerouslySetInnerHTML={{
+                    __html: conclution_text,
+                  }}
+                ></p>
+              )}
             </div>
           </div>
         </Section>

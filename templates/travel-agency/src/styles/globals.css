@@ -53,5 +53,14 @@ body {
 }
 
 #__next {
-@apply font-gilroy bg-white;
+@apply font-gilroy bg-white selection:bg-[rgba(255,224,27,0.15)];
+}
+
+
+.Toastify__progress-bar-theme--light.Toastify__progress-bar--success{
+@apply bg-[#ffd666]
+}
+
+.Toastify__close-button--light {
+@apply text-white
 }

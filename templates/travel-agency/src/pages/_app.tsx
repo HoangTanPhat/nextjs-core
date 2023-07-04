@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -86,8 +88,13 @@ export default function App({
         />
       </Head>
       <AllProviders>
-        <main className={`${gilroy.variable} font-gilroy`}>
+        <main className={`${gilroy.variable} font-gilroy relative`}>
           <Component {...pageProps} />
+          <ToastContainer
+            autoClose={3000}
+            hideProgressBar={false}
+            position="bottom-left"
+          />
         </main>
       </AllProviders>
     </CacheProvider>

@@ -5,7 +5,7 @@ export type PostsResponse = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
-    introduction_text: string;
+    introduction_text: string | null;
     slug: string;
     thumbnail_image: {
         data: DefaultCmsDataResponse<Image>
@@ -14,6 +14,7 @@ export type PostsResponse = {
     categories: {
         data: DefaultCmsDataResponse<Categories>[]
     }
+    conclution_text: string | null;
 }
 
 export type ListPost = {
