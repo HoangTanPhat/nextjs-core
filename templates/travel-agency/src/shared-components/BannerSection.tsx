@@ -64,7 +64,7 @@ export default function BannerSection({
             {title}
           </h1>
           <h4
-            className={`max-w-[80%] text-white my-4 ${
+            className={`max-w-[80%] text-white my-4 text-lg ${
               descAlign === "right"
                 ? "text-right"
                 : descAlign === "center"

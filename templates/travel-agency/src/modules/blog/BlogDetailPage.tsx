@@ -8,14 +8,17 @@ import { DefaultCmsDataResponse } from "@/api/types";
 import { PostsResponse } from "@/api/cms/types";
 import dayjs from "dayjs";
 import SocialShare from "@/shared-components/SocialShare";
+import RelatedPosts from "./RelatedPosts";
 
 type BlogDetailPageProps = {
   post: DefaultCmsDataResponse<PostsResponse> | null;
   previewMode: boolean;
+  relatedPosts: DefaultCmsDataResponse<PostsResponse>[] | null;
 };
 export default function BlogDetailPage({
   post,
   previewMode = false,
+  relatedPosts,
 }: BlogDetailPageProps) {
   const contentContainerRef = useRef(null);
   const router = useRouter();
@@ -27,10 +30,10 @@ export default function BlogDetailPage({
     if (contentContainerRef.current) {
       const select = contentContainerRef.current as HTMLDivElement;
       select.querySelectorAll("p")?.forEach((ele) => {
-        ele.classList.add("mb-8");
+        ele.classList.add("mb-8", "text-lg", "leading-8", "font-thin");
       });
     }
-  }, []);
+  }, [slug]);
 
   if (!slug) return <>Đang tải nội dung</>;
   if (post) {
@@ -95,7 +98,7 @@ export default function BlogDetailPage({
             </div>
 
             {/* Blog content */}
-            <div className="w-11/12">
+            <div className="w-11/12" ref={contentContainerRef}>
               <div className="flex flex-row gap-4 items-center mb-6 rounded-full w-fit">
                 {categories?.data.map((category) => {
                   return (
@@ -113,23 +116,22 @@ export default function BlogDetailPage({
                 <h1 className="text-5xl font-bold">{title}</h1>
               </div>
               {introduction_text && (
-                <p
-                  className="leading-7 mb-6 first-letter:text-7xl first-letter:font-bold first-letter:text-black
+                <div
+                  className="first-letter:text-7xl first-letter:font-bold first-letter:text-black
               first-letter:mr-3 first-letter:float-left"
                   dangerouslySetInnerHTML={{
                     __html: introduction_text,
                   }}
-                ></p>
+                ></div>
               )}
 
-              <div id="main-content" ref={contentContainerRef}>
+              <div id="main-content">
                 {blog_content &&
                   blog_content.map(({ heading, details }) => {
                     return (
                       <>
                         <h2 className="text-2xl mb-6 font-bold">{heading}</h2>
                         <div
-                          className="leading-7"
                           dangerouslySetInnerHTML={{
                             __html: details,
                           }}
@@ -139,15 +141,21 @@ export default function BlogDetailPage({
                   })}
               </div>
               {conclution_text && (
-                <p
-                  className="leading-7 mb-6"
-                  dangerouslySetInnerHTML={{
-                    __html: conclution_text,
-                  }}
-                ></p>
+                <div>
+                  <h2 className="text-2xl mb-6 font-bold">Conclusion</h2>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: conclution_text,
+                    }}
+                  ></div>
+                </div>
               )}
             </div>
           </div>
+
+          {relatedPosts && relatedPosts.length ? (
+            <RelatedPosts posts={relatedPosts} />
+          ) : null}
         </Section>
       </LayoutContainer>
     );

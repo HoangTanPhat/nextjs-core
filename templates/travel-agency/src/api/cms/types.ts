@@ -8,7 +8,7 @@ export type PostsResponse = {
     introduction_text: string | null;
     slug: string;
     thumbnail_image: {
-        data: DefaultCmsDataResponse<Image>
+        data: DefaultCmsDataResponse<ImageCMS>
     };
     blog_content: BlogContent[];
     categories: {
@@ -26,7 +26,7 @@ export type ListPost = {
     date: string;
 }
 
-export type Image = {
+export type ImageCMS = {
     name: string;
     url: string;
     width: number;
@@ -53,4 +53,5 @@ export type BlogContent = {
 
 export type Categories = {
     name: string;
+    idName: string;
 }

@@ -34,7 +34,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "**/*.json"
+    "**/*.json",
+    "jest.config.js"
   ],
   "exclude": ["**/node_modules"]
 }

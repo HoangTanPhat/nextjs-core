@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { baseUrl } from "@/lib/contants";
 
 type LayoutContainerProps = NextSeoProps & {
-  children: ReactNode;
+  children: React.ReactNode;
   headerElevation?: boolean;
   thumbnail?: string;
 };

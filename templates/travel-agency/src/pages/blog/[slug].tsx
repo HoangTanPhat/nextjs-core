@@ -1,4 +1,5 @@
 import { PostsResponse } from "@/api/cms/types";
+import { getPostByCategoriesFn } from "@/api/cms/useGetPostByCategories";
 import { getPostBySlugFn } from "@/api/cms/useGetPostBySlug";
 import { getPostsFn } from "@/api/cms/useGetPosts";
 import { DefaultCmsDataResponse, DefaultCmsResponse } from "@/api/types";
@@ -13,13 +14,21 @@ export type BlogProps = {
 type Props = {
   post: DefaultCmsDataResponse<PostsResponse> | null;
   previewMode: boolean;
+  relatedPosts: DefaultCmsDataResponse<PostsResponse>[] | null;
 };
 
 export default function Blog({
   post,
   previewMode = false,
+  relatedPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <BlogDetailPage post={post} previewMode={previewMode} />;
+  return (
+    <BlogDetailPage
+      post={post}
+      previewMode={previewMode}
+      relatedPosts={relatedPosts}
+    />
+  );
 }
 
 export const getStaticPaths = async () => {
@@ -116,16 +125,32 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
       return { notFound: true };
     }
 
-    if (postRes.data?.length)
+    if (postRes.data?.length) {
+      let relatedPosts = [] as DefaultCmsDataResponse<PostsResponse>[];
+      if (
+        postRes.data[0].attributes.categories?.data.length &&
+        postRes.data[0].attributes.slug
+      ) {
+        await getPostByCategoriesFn(
+          postRes.data[0].attributes.categories?.data[0].attributes.idName,
+          postRes.data[0].attributes.slug
+        )
+          .then((res) => {
+            relatedPosts = res.data;
+          })
+          .catch((error) => console.log(error));
+      }
+
       return {
         props: {
           post: postRes.data[0],
           previewMode,
           fallback: "blocking",
+          relatedPosts: relatedPosts,
         },
         revalidate: 30,
       };
-    else
+    } else
       return {
         notFound: true,
       };

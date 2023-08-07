@@ -14,6 +14,7 @@ const nextConfig = {
     "@mui/material",
     "@mui/icons-material",
     "@mui/material/styles",
+    "jest",
   ],
   // compiler: {
   //   styledComponents: true,
